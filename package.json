@@ -1,0 +1,27 @@
+{
+  "name": "devcamper",
+  "version": "1.0.0",
+  "description": "Learning http",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suneelkumargavara/DevCamper.git"
+  },
+  "author": "SuneelKumarGavara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suneelkumargavara/DevCamper/issues"
+  },
+  "homepage": "https://github.com/suneelkumargavara/DevCamper#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
