@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 
 const {
   getBootcamps,
@@ -6,15 +6,35 @@ const {
   updateBootcamp,
   deleteBootcamp,
   createBootcamp,
-  getBootCampsInRadius
-} = require('../controllers/bootcamps')
+  getBootCampsInRadius,
+  bootcampPhotoUpload,
+} = require('../controllers/bootcamps');
 
-const router = express.Router()
+const Bootcamp = require('../models/Bootcamp');
 
-router.route('/').get(getBootcamps).post(createBootcamp)
+const advancedResults = require('../mideleware/advancedResults');
 
-router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp)
+// Include other resourse routers
+const courseRouter = require('./courses');
 
-router.route('/radius/:zipcode/:distance').get(getBootCampsInRadius)
+const router = express.Router();
 
-module.exports = router
+// Re route into other resourse
+router.use('/:bootcampId/courses', courseRouter);
+
+router
+  .route('/')
+  .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
+  .post(createBootcamp);
+
+router
+  .route('/:id')
+  .get(getBootcamp)
+  .put(updateBootcamp)
+  .delete(deleteBootcamp);
+
+router.route('/radius/:zipcode/:distance').get(getBootCampsInRadius);
+
+router.route('/:id/photo').put(bootcampPhotoUpload);
+
+module.exports = router;
